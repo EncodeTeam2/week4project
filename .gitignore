@@ -1,9 +1,9 @@
 # yarn
-/.yarn/cache
+*/.yarn/cache
 
 # compiled output
-/dist
-/node_modules
+*/dist
+*/node_modules
 
 # Logs
 logs
