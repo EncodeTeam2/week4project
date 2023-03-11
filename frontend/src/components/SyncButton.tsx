@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
+import { getBlockNumber_ } from "../service/ethersService";
 
+export function SyncButton() {
 
-export function SyncButton(props: any) {
-    function getBlockInformation() {
-        console.log('Getting block information');
+  const [blockNumber, setBlockNumber] = useState<number | string>('unknown');
+
+  async function getBlockNumber() {
+    try {
+      setBlockNumber(await getBlockNumber_());
+    } catch (error) {
+      console.log(error);
     }
+  }
 
   return (
     <div>
-      <p>The latest block in the network is: x </p>
-      <Button variant="success" onClick={getBlockInformation}>
+      <p>The latest block in the network is: { blockNumber } </p>
+      <Button variant="success" onClick={() => getBlockNumber()}>
         Get Latest Block
       </Button>
     </div>

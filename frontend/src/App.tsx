@@ -1,13 +1,12 @@
-import React, { useMemo } from "react";
+import React from "react";
 import "./App.css";
 import { CreateWalletButton } from "./components/createWalletButton";
 import { MintButton } from "./components/mintButton";
 import { SyncButton } from "./components/SyncButton";
 import { VotingPowerButton } from "./components/votingPowerButton";
-import { ethers } from "ethers";
-
 
 function App() {
+
 
   return (
     <div className="App">
