@@ -1,11 +1,10 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import { getProposals_} from "../service/ethersService";
 
 export function VotingPowerButton(props: any) {
   function getVotingPower() {
     console.log("Getting voting power");
-    getProposals_();
+    console.log(props.wallet);
   }
 
   return (

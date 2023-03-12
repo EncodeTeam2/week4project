@@ -1,4 +1,5 @@
 import { ethers, Wallet } from "ethers";
+import { json } from "stream/consumers";
 import tokenBallotJson from "../assets/TokenizedBallot.json";
 
 const NETWORK = "goerli";
@@ -80,6 +81,20 @@ export const createRandomWallet_ = () => {
 const ballotFactory = () => {
   const tokenizedBallotContact = new ethers.Contract(TOKENIZED_BALLOT_ADDRESS, TOKENIZED_BALLOT_ABI , getClientProvider());
   return tokenizedBallotContact;
+}
+
+export const mintTokens_ = async (amount: number, wallet: string) => {
+  fetch("http://localhost:3000/request-tokens", {
+    method: "POST",
+    body: JSON.stringify({
+      amount: amount,
+      address: wallet
+  }),
+}).then((res) => {
+  console.log(res);
+});
+
+
 }
 
 
