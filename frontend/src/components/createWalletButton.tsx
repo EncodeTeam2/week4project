@@ -1,28 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
-import { getWallet_, createRandomWallet_ } from "../service/ethersService";
 
-export function CreateWalletButton() {
-  const [wallet, setWallet] = useState<any>("unknown");
-
-  async function getWallet() {
-    setWallet(await getWallet_());
-  }
-
-  function createWallet() {
-    setWallet(createRandomWallet_());
-  }
-
+export function CreateWalletButton(props: any) {
   return (
     <>
       <div>
-        <p>The wallet is we will use is: {wallet}</p>
+        <p>The wallet is we will use is: { props.wallet }</p>
       </div>
       <div>
-        <Button variant="success" size="lg" onClick={() => getWallet()}>
+        <Button variant="success" size="lg" onClick={() => props.getWallet()}>
           Connect Wallet
         </Button>
-        <Button variant="success" size="lg" onClick={() => createWallet()}>
+        <Button variant="success" size="lg" onClick={() => props.createWallet()}>
           Create Wallet
         </Button>
       </div>

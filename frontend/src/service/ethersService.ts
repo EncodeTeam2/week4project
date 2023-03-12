@@ -1,6 +1,9 @@
 import { ethers, Wallet } from "ethers";
+import tokenBallotJson from "../assets/TokenizedBallot.json";
 
 const NETWORK = "goerli";
+const TOKENIZED_BALLOT_ADDRESS = "0x19dC6F5817243233fcdD10F39049a391EEbbBb7d";
+const TOKENIZED_BALLOT_ABI = tokenBallotJson.abi;
 declare let window: any;
 
 const handleError = (error: any) => {
@@ -8,7 +11,7 @@ const handleError = (error: any) => {
 };
 
 // Set the provider for the given network
-const _getProvider = (): any => {
+const _getNetwork = (): any => {
   try {
     return ethers.providers.getDefaultProvider(NETWORK);
   } catch (error) {
@@ -23,12 +26,18 @@ const _getProvider = (): any => {
 export const getBlockNumber_ = async (): Promise<any> => {
   // TODO: make api call to server to get block number
   try {
-    return await _getProvider().getBlockNumber();
+    return await _getNetwork().getBlockNumber();
   } catch (error) {
     return handleError(error);
   }
 };
 
+
+const getClientProvider = () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  console.log(provider);
+  return provider;
+}
 /**
  * Get wallet from window
  * if no wallet from window then
@@ -37,8 +46,9 @@ export const getBlockNumber_ = async (): Promise<any> => {
  * @returns address of connected wallet
 */
 export const getWallet_ = async () => {
-  try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  try { 
+    const provider = getClientProvider();
+    
 
     // Check for phantom wallet
     const isPhantomInstalled = window?.ethereum?.isPhantom;
@@ -62,9 +72,15 @@ export const getWallet_ = async () => {
  * Creates a random wallet for user
  * @returns random wallet address
  */
-export const createRandomWallet_= () => {
+export const createRandomWallet_ = () => {
     const wallet = Wallet.createRandom();
     return wallet.address;
 }
+
+const ballotFactory = () => {
+  const tokenizedBallotContact = new ethers.Contract(TOKENIZED_BALLOT_ADDRESS, TOKENIZED_BALLOT_ABI , getClientProvider());
+  return tokenizedBallotContact;
+}
+
 
 export { Wallet };

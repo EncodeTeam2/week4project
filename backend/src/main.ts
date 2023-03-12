@@ -12,7 +12,7 @@ async function bootstrap() {
     preflightContinue: false,
     allowedHeaders: 'Content-Type, Accept, Authorization',
   };
-  app.enableCors(corsOptions)
+  app.enableCors(corsOptions);
 
   const config = new DocumentBuilder()
     .setTitle('VotingERC20Token and TokenizedBallot API')

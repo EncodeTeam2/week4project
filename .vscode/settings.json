@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["webassemblyjs", "xtuc"]
+  "cSpell.words": ["webassemblyjs", "xtuc"],
+  "dotenv.enableAutocloaking": false
 }
